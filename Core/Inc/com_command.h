@@ -40,7 +40,8 @@ struct note_param_com {
     uint16_t    tempo;
     uint16_t    helz;
     uint64_t    note_type;
-    uint64_t    reserved[2];
+    uint64_t	velocity;
+    uint64_t    reserved;
 };
 
 

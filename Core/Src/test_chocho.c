@@ -16,7 +16,7 @@
 void clear_param(struct algorism_param_4op *param1){
 
     param1->internal.atack_start_time = param1->internal.decay_start_time = param1->internal.release_start_time = 0;
-    param1->attack = 100; param1->decay = 1000000; param1->sustain_level = 0.1f;
+    param1->attack = 1; param1->decay = 1000000; param1->sustain_level = 0.1f;
 
 }
 
@@ -143,6 +143,7 @@ void clear_param(struct algorism_param_4op *param1){
 //}
 
 
+
 void cho_cho_for_8algor_command()
 {
 	struct algorism_param_4op param1;
@@ -170,118 +171,122 @@ void cho_cho_for_8algor_command()
 	algorism_[6] = YM2203_algolism6;
 	algorism_[7] = YM2203_algolism7;
 
-	struct command_params	params;
+	struct command_params	params = {0};
+	params.param1 = &param1;
+	params.param2 = &param2;
+	params.param3 = &param3;
+	params.param4 = &param4;
 
-	for (int i = 0 ; i < 8 ; ++i) {
-		algolism_4op algorism = algorism_[i];
+	params.velocity = 100;
 
-		params.param1 = &param1;
-		params.param2 = &param2;
-		params.param3 = &param3;
-		params.param4 = &param4;
-
-		param1.helz = param2.helz = param3.helz = param4.helz = 392;
-		clear_param(&param1); clear_param(&param2); clear_param(&param3); clear_param(&param4);
-		params.algorism = algorism;
-		params.note_on = true;
-		params.tempo = defaultTempo;
-		params.note = quoater_note;
-		note_4op_delaying(&params);
-
-		param1.helz = param2.helz = param3.helz = param4.helz = 330;
-		clear_param(&param1); clear_param(&param2); clear_param(&param3); clear_param(&param4);
-		params.algorism = algorism;
-		params.note_on = true;
-		params.tempo = defaultTempo;
-		params.note = quoater_note;
-		note_4op_delaying(&params);
-
-		clear_param(&param1); clear_param(&param2); clear_param(&param3); clear_param(&param4);
-		params.algorism = algorism;
-		params.note_on = true;
-		params.tempo = defaultTempo;
-		params.note = half_note;
-		note_4op_delaying(&params);
-
-		param1.helz = param2.helz = param3.helz = param4.helz = 349;
-		clear_param(&param1); clear_param(&param2); clear_param(&param3); clear_param(&param4);
-		params.algorism = algorism;
-		params.note_on = true;
-		params.tempo = defaultTempo;
-		params.note = quoater_note;
-		note_4op_delaying(&params);
-
-		param1.helz = param2.helz = param3.helz = param4.helz = 294;
-		clear_param(&param1); clear_param(&param2); clear_param(&param3); clear_param(&param4);
-		params.algorism = algorism;
-		params.note_on = true;
-		params.tempo = defaultTempo;
-		params.note = quoater_note;
-		note_4op_delaying(&params);
-
-		clear_param(&param1); clear_param(&param2); clear_param(&param3); clear_param(&param4);
-		params.algorism = algorism;
-		params.note_on = true;
-		params.tempo = defaultTempo;
-		params.note = half_note;
-		note_4op_delaying(&params);
-
-
-		param1.helz = param2.helz = param3.helz = param4.helz = 262;
-		clear_param(&param1); clear_param(&param2); clear_param(&param3); clear_param(&param4);
-		params.algorism = algorism;
-		params.note_on = true;
-		params.tempo = defaultTempo;
-		params.note = quoater_note;
-		note_4op_delaying(&params);
-
-		param1.helz = param2.helz = param3.helz = param4.helz = 294;
-		clear_param(&param1); clear_param(&param2); clear_param(&param3); clear_param(&param4);
-		params.algorism = algorism;
-		params.note_on = true;
-		params.tempo = defaultTempo;
-		params.note = quoater_note;
-		note_4op_delaying(&params);
-
-		param1.helz = param2.helz = param3.helz = param4.helz = 330;
-		clear_param(&param1); clear_param(&param2); clear_param(&param3); clear_param(&param4);
-		params.algorism = algorism;
-		params.note_on = true;
-		params.tempo = defaultTempo;
-		params.note = quoater_note;
-		note_4op_delaying(&params);
-
-		param1.helz = param2.helz = param3.helz = param4.helz = 349;
-		clear_param(&param1); clear_param(&param2); clear_param(&param3); clear_param(&param4);
-		params.algorism = algorism;
-		params.note_on = true;
-		params.tempo = defaultTempo;
-		params.note = quoater_note;
-		note_4op_delaying(&params);
-
-		param1.helz = param2.helz = param3.helz = param4.helz = 392;
-		clear_param(&param1); clear_param(&param2); clear_param(&param3); clear_param(&param4);
-		params.algorism = algorism;
-		params.note_on = true;
-		params.tempo = defaultTempo;
-		params.note = quoater_note;
-		note_4op_delaying(&params);
-
-		clear_param(&param1); clear_param(&param2); clear_param(&param3); clear_param(&param4);
-		params.algorism = algorism;
-		params.note_on = true;
-		params.tempo = defaultTempo;
-		params.note = quoater_note;
-		note_4op_delaying(&params);
-
-		clear_param(&param1); clear_param(&param2); clear_param(&param3); clear_param(&param4);
-		params.algorism = algorism;
-		params.note_on = true;
-		params.tempo = defaultTempo;
-		params.note = half_note;
-		note_4op_delaying(&params);
-
-	}
+//	for (int i = 0 ; i < 8 ; ++i) {
+//		algolism_4op algorism = algorism_[i];
+//
+//		params.velocity = 127;
+//
+//
+//		param1.helz = param2.helz = param3.helz = param4.helz = 392;
+//		clear_param(&param1); clear_param(&param2); clear_param(&param3); clear_param(&param4);
+//		params.algorism = algorism;
+//		params.note_on = true;
+//		params.tempo = defaultTempo;
+//		params.note = quoater_note;
+//		note_4op_delaying(&params);
+//
+//		param1.helz = param2.helz = param3.helz = param4.helz = 330;
+//		clear_param(&param1); clear_param(&param2); clear_param(&param3); clear_param(&param4);
+//		params.algorism = algorism;
+//		params.note_on = true;
+//		params.tempo = defaultTempo;
+//		params.note = quoater_note;
+//		note_4op_delaying(&params);
+//
+//		clear_param(&param1); clear_param(&param2); clear_param(&param3); clear_param(&param4);
+//		params.algorism = algorism;
+//		params.note_on = true;
+//		params.tempo = defaultTempo;
+//		params.note = half_note;
+//		note_4op_delaying(&params);
+//
+//		param1.helz = param2.helz = param3.helz = param4.helz = 349;
+//		clear_param(&param1); clear_param(&param2); clear_param(&param3); clear_param(&param4);
+//		params.algorism = algorism;
+//		params.note_on = true;
+//		params.tempo = defaultTempo;
+//		params.note = quoater_note;
+//		note_4op_delaying(&params);
+//
+//		param1.helz = param2.helz = param3.helz = param4.helz = 294;
+//		clear_param(&param1); clear_param(&param2); clear_param(&param3); clear_param(&param4);
+//		params.algorism = algorism;
+//		params.note_on = true;
+//		params.tempo = defaultTempo;
+//		params.note = quoater_note;
+//		note_4op_delaying(&params);
+//
+//		clear_param(&param1); clear_param(&param2); clear_param(&param3); clear_param(&param4);
+//		params.algorism = algorism;
+//		params.note_on = true;
+//		params.tempo = defaultTempo;
+//		params.note = half_note;
+//		note_4op_delaying(&params);
+//
+//
+//		param1.helz = param2.helz = param3.helz = param4.helz = 262;
+//		clear_param(&param1); clear_param(&param2); clear_param(&param3); clear_param(&param4);
+//		params.algorism = algorism;
+//		params.note_on = true;
+//		params.tempo = defaultTempo;
+//		params.note = quoater_note;
+//		note_4op_delaying(&params);
+//
+//		param1.helz = param2.helz = param3.helz = param4.helz = 294;
+//		clear_param(&param1); clear_param(&param2); clear_param(&param3); clear_param(&param4);
+//		params.algorism = algorism;
+//		params.note_on = true;
+//		params.tempo = defaultTempo;
+//		params.note = quoater_note;
+//		note_4op_delaying(&params);
+//
+//		param1.helz = param2.helz = param3.helz = param4.helz = 330;
+//		clear_param(&param1); clear_param(&param2); clear_param(&param3); clear_param(&param4);
+//		params.algorism = algorism;
+//		params.note_on = true;
+//		params.tempo = defaultTempo;
+//		params.note = quoater_note;
+//		note_4op_delaying(&params);
+//
+//		param1.helz = param2.helz = param3.helz = param4.helz = 349;
+//		clear_param(&param1); clear_param(&param2); clear_param(&param3); clear_param(&param4);
+//		params.algorism = algorism;
+//		params.note_on = true;
+//		params.tempo = defaultTempo;
+//		params.note = quoater_note;
+//		note_4op_delaying(&params);
+//
+//		param1.helz = param2.helz = param3.helz = param4.helz = 392;
+//		clear_param(&param1); clear_param(&param2); clear_param(&param3); clear_param(&param4);
+//		params.algorism = algorism;
+//		params.note_on = true;
+//		params.tempo = defaultTempo;
+//		params.note = quoater_note;
+//		note_4op_delaying(&params);
+//
+//		clear_param(&param1); clear_param(&param2); clear_param(&param3); clear_param(&param4);
+//		params.algorism = algorism;
+//		params.note_on = true;
+//		params.tempo = defaultTempo;
+//		params.note = quoater_note;
+//		note_4op_delaying(&params);
+//
+//		clear_param(&param1); clear_param(&param2); clear_param(&param3); clear_param(&param4);
+//		params.algorism = algorism;
+//		params.note_on = true;
+//		params.tempo = defaultTempo;
+//		params.note = half_note;
+//		note_4op_delaying(&params);
+//
+//	}
 
 
 	param1.amp = 0.0;

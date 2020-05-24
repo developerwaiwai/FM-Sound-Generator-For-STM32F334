@@ -10,7 +10,7 @@
 #include "fm_algorism.h"
 #include "com_command.h"
 
-extern UART_HandleTypeDef huart1;
+extern UART_HandleTypeDef huart2;
 
 
 struct ocirator_param_com param1,param2,param3,param4;
@@ -33,65 +33,66 @@ void music_data_receive()
     char NACK = 0;
 
     struct algorism_param_4op alg_param1, alg_param2, alg_param3, alg_param4;
-    struct note_param_com note_com;
-    struct command_params note_params;
+    struct note_param_com note_com = {0};
+    struct command_params note_params = {0};
 
     uint8_t *data = (uint8_t *) malloc(BUF_SIZE);
     while(1) {
         // onkai(NULL);
-    	HAL_StatusTypeDef st = HAL_UART_Receive(&huart1, data, RW_LENGTH, 1000);
+    	HAL_StatusTypeDef st = HAL_UART_Receive(&huart2, data, RW_LENGTH, 1000);
+
 
         if(st != HAL_OK) continue;
 
         switch(data[0]) {
             case command_param1:
-                 printf("\n");
-                 printf("Received1, ");
+//                 printf("\n");
+//                 printf("Received1, ");
                 memcpy(&param1, &data[2], sizeof(struct ocirator_param_com));
-                 printf("%d, ", param1.amp100);
-                 printf("%d, ", param1.mul);
-                 printf("%d, ", param1.helz);
-                 printf("%d, ", param1.attack);
-                 printf("%d, ", param1.decay);
-                 printf("%d, ", param1.sus_level100);
-                 printf("%d, ", param1.release_level100);
+//                 printf("%d, ", param1.amp100);
+//                 printf("%d, ", param1.mul);
+//                 printf("%d, ", param1.helz);
+//                 printf("%d, ", param1.attack);
+//                 printf("%d, ", param1.decay);
+//                 printf("%d, ", param1.sus_level100);
+//                 printf("%d, ", param1.release_level100);
 
-                HAL_UART_Transmit(&huart1, &ACK, 1, 0xFFFF);
+                HAL_UART_Transmit(&huart2, &ACK, 1, 0xFFFF);
                 break;
 
             case command_param2:
-                 printf("\n");
-                 printf("Received2");
+//                 printf("\n");
+//                 printf("Received2");
                 memcpy(&param2, &data[2], sizeof(struct ocirator_param_com));
-                HAL_UART_Transmit(&huart1, &ACK, 1, 0xFFFF);
+                HAL_UART_Transmit(&huart2, &ACK, 1, 0xFFFF);
                 break;
 
             case command_param3:
-                 printf("\n");
-                 printf("Received3");
+//                 printf("\n");
+//                 printf("Received3");
                 memcpy(&param3, &data[2], sizeof(struct ocirator_param_com));
-                HAL_UART_Transmit(&huart1, &ACK, 1, 0xFFFF);
+                HAL_UART_Transmit(&huart2, &ACK, 1, 0xFFFF);
                 break;
 
             case command_param4:
-                 printf("\n");
-                 printf("Received4");
+//                 printf("\n");
+//                 printf("Received4");
                 memcpy(&param4, &data[2], sizeof(struct ocirator_param_com));
-                HAL_UART_Transmit(&huart1, &ACK, 1, 0xFFFF);
+                HAL_UART_Transmit(&huart2, &ACK, 1, 0xFFFF);
                 break;
 
             case command_note_on:
             case command_note_off:
-                 printf("\n");
-                 printf("Received16, ");
+//                 printf("\n");
+//                 printf("Received16, ");
                 memcpy(&note_com, &data[2], sizeof(struct note_param_com));
-                 printf("\n");
-                 printf("%d, ", note_com.on_off);
-                 printf("%d, ", note_com.algorism);
-                 printf("%d, ", note_com.tempo);
-                 printf("%d, ", note_com.helz);
-                 printf("%d, ", note_com.note_type);
-                 printf("\n");
+//                 printf("\n");
+//                 printf("%d, ", note_com.on_off);
+//                 printf("%d, ", note_com.algorism);
+//                 printf("%d, ", note_com.tempo);
+//                 printf("%d, ", note_com.helz);
+//                 printf("%d, ", note_com.note_type);
+//                 printf("\n");
 
                 make_algorism_param(note_com, param1, &alg_param1);
                 make_algorism_param(note_com, param2, &alg_param2);
@@ -139,13 +140,14 @@ void music_data_receive()
                 note_params.param2 = &alg_param2;
                 note_params.param3 = &alg_param3;
                 note_params.param4 = &alg_param4;
+                note_params.velocity = (uint8_t)note_com.velocity;
 
                 success = note_4op(&note_params);
                 if(success == true) {
-                    HAL_UART_Transmit(&huart1, &ACK, 1, 0xFFFF);
+                    HAL_UART_Transmit(&huart2, &ACK, 1, 0xFFFF);
                 }
                 else {
-                    HAL_UART_Transmit(&huart1, &NACK, 1, 0xFFFF);
+                    HAL_UART_Transmit(&huart2, &NACK, 1, 0xFFFF);
                 }
                 break;
         }

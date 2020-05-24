@@ -46,7 +46,7 @@ struct algorism_param_4op {
  * アルゴリズム実装定義
  */
 typedef float (*algorism)(uint32_t helz);
-typedef float (*algolism_4op)(struct algorism_param_4op *param1, struct algorism_param_4op *param2, struct algorism_param_4op *param3, struct algorism_param_4op *param4, uint64_t t);
+typedef float (*algolism_4op)(float velocity, struct algorism_param_4op *param1, struct algorism_param_4op *param2, struct algorism_param_4op *param3, struct algorism_param_4op *param4, uint64_t t);
 
 
 /*
@@ -54,6 +54,7 @@ typedef float (*algolism_4op)(struct algorism_param_4op *param1, struct algorism
  */
 struct note_param {
     algolism_4op playing_algorism;
+    float		 velocity;
     struct algorism_param_4op param1, param2, param3, param4;
 
     bool        note_on_off;
@@ -72,6 +73,7 @@ struct command_params {
 	bool						note_on;
 	uint16_t					tempo;
 	uint64_t					note;
+	uint8_t						velocity;
 	struct algorism_param_4op* 	param1;
 	struct algorism_param_4op* 	param2;
 	struct algorism_param_4op* 	param3;
@@ -81,14 +83,14 @@ struct command_params {
 /*
  * アルゴリズム
  */
-float YM2203_algolism0(struct algorism_param_4op *param1, struct algorism_param_4op *param2, struct algorism_param_4op *param3, struct algorism_param_4op *param4, uint64_t t);
-float YM2203_algolism1(struct algorism_param_4op *param1, struct algorism_param_4op *param2, struct algorism_param_4op *param3, struct algorism_param_4op *param4, uint64_t t);
-float YM2203_algolism2(struct algorism_param_4op *param1, struct algorism_param_4op *param2, struct algorism_param_4op *param3, struct algorism_param_4op *param4, uint64_t t);
-float YM2203_algolism3(struct algorism_param_4op *param1, struct algorism_param_4op *param2, struct algorism_param_4op *param3, struct algorism_param_4op *param4, uint64_t t);
-float YM2203_algolism4(struct algorism_param_4op *param1, struct algorism_param_4op *param2, struct algorism_param_4op *param3, struct algorism_param_4op *param4, uint64_t t);
-float YM2203_algolism5(struct algorism_param_4op *param1, struct algorism_param_4op *param2, struct algorism_param_4op *param3, struct algorism_param_4op *param4, uint64_t t);
-float YM2203_algolism6(struct algorism_param_4op *param1, struct algorism_param_4op *param2, struct algorism_param_4op *param3, struct algorism_param_4op *param4, uint64_t t);
-float YM2203_algolism7(struct algorism_param_4op *param1, struct algorism_param_4op *param2, struct algorism_param_4op *param3, struct algorism_param_4op *param4, uint64_t t);
+float YM2203_algolism0(float velocity, struct algorism_param_4op *param1, struct algorism_param_4op *param2, struct algorism_param_4op *param3, struct algorism_param_4op *param4, uint64_t t);
+float YM2203_algolism1(float velocity, struct algorism_param_4op *param1, struct algorism_param_4op *param2, struct algorism_param_4op *param3, struct algorism_param_4op *param4, uint64_t t);
+float YM2203_algolism2(float velocity, struct algorism_param_4op *param1, struct algorism_param_4op *param2, struct algorism_param_4op *param3, struct algorism_param_4op *param4, uint64_t t);
+float YM2203_algolism3(float velocity, struct algorism_param_4op *param1, struct algorism_param_4op *param2, struct algorism_param_4op *param3, struct algorism_param_4op *param4, uint64_t t);
+float YM2203_algolism4(float velocity, struct algorism_param_4op *param1, struct algorism_param_4op *param2, struct algorism_param_4op *param3, struct algorism_param_4op *param4, uint64_t t);
+float YM2203_algolism5(float velocity, struct algorism_param_4op *param1, struct algorism_param_4op *param2, struct algorism_param_4op *param3, struct algorism_param_4op *param4, uint64_t t);
+float YM2203_algolism6(float velocity, struct algorism_param_4op *param1, struct algorism_param_4op *param2, struct algorism_param_4op *param3, struct algorism_param_4op *param4, uint64_t t);
+float YM2203_algolism7(float velocity, struct algorism_param_4op *param1, struct algorism_param_4op *param2, struct algorism_param_4op *param3, struct algorism_param_4op *param4, uint64_t t);
 
 
 /*
